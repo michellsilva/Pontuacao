@@ -65,12 +65,6 @@
   <ItemGroup>
     <Folder Include="basic\" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\UnibraCred.Pontuacao.Entity\UnibraCred.Pontuacao.Entity.csproj">
-      <Project>{ed5c8631-a4ec-4251-9748-061133abec13}</Project>
-      <Name>UnibraCred.Pontuacao.Entity</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

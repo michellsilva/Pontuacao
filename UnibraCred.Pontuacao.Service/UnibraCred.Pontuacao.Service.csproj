@@ -53,10 +53,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UnibraCred.Pontuacao.Entity\UnibraCred.Pontuacao.Entity.csproj">
-      <Project>{ed5c8631-a4ec-4251-9748-061133abec13}</Project>
-      <Name>UnibraCred.Pontuacao.Entity</Name>
-    </ProjectReference>
     <ProjectReference Include="..\UnibraCred.Pontuacao.Facade\UnibraCred.Pontuacao.Facade.csproj">
       <Project>{6e4050e1-cc97-4ab8-a9f1-b8f02d3bb26e}</Project>
       <Name>UnibraCred.Pontuacao.Facade</Name>

@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnibraCred.Pontuacao.Facade
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnibraCred.Pontuacao.Service", "UnibraCred.Pontuacao.Service\UnibraCred.Pontuacao.Service.csproj", "{AE596DED-B11A-4325-8B7E-DD96EC0FB1E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnibraCred.Pontuacao.Entity", "UnibraCred.Pontuacao.Entity\UnibraCred.Pontuacao.Entity.csproj", "{ED5C8631-A4EC-4251-9748-061133ABEC13}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{AE596DED-B11A-4325-8B7E-DD96EC0FB1E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE596DED-B11A-4325-8B7E-DD96EC0FB1E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE596DED-B11A-4325-8B7E-DD96EC0FB1E8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ED5C8631-A4EC-4251-9748-061133ABEC13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ED5C8631-A4EC-4251-9748-061133ABEC13}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ED5C8631-A4EC-4251-9748-061133ABEC13}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ED5C8631-A4EC-4251-9748-061133ABEC13}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
