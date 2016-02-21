@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PontuacaoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DebitoPontos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fatura_id" Type="int" Nullable="false" />
+          <Property Name="cartao_id" Type="int" Nullable="false" />
+          <Property Name="pontosQtd" Type="int" Nullable="false" />
+          <Property Name="dtUtilizacao" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PontuacaoFatura">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="taxaConversao_id" Type="int" Nullable="false" />
+          <Property Name="fatura_id" Type="int" Nullable="false" />
+          <Property Name="pontosQtd" Type="int" Nullable="false" />
+          <Property Name="cartao_id" Type="int" Nullable="false" />
+          <Property Name="dtInclusao" Type="datetime" Nullable="false" />
+          <Property Name="dtVigencia" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TaxaConversao">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="taxaValor" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="dtInclusao" Type="datetime" Nullable="false" />
+          <Property Name="dtVigencia" Type="datetime" Nullable="false" />
+          <Property Name="diasValidade" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Pontuacao_TaxaConversao">
+          <End Role="TaxaConversao" Type="Self.TaxaConversao" Multiplicity="1" />
+          <End Role="PontuacaoFatura" Type="Self.PontuacaoFatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaxaConversao">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PontuacaoFatura">
+              <PropertyRef Name="taxaConversao_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PontuacaoModelStoreContainer">
+          <EntitySet Name="DebitoPontos" EntityType="Self.DebitoPontos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PontuacaoFatura" EntityType="Self.PontuacaoFatura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaxaConversao" EntityType="Self.TaxaConversao" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Pontuacao_TaxaConversao" Association="Self.FK_Pontuacao_TaxaConversao">
+            <End Role="TaxaConversao" EntitySet="TaxaConversao" />
+            <End Role="PontuacaoFatura" EntitySet="PontuacaoFatura" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PontuacaoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DebitoPontos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fatura_id" Type="Int32" Nullable="false" />
+          <Property Name="cartao_id" Type="Int32" Nullable="false" />
+          <Property Name="pontosQtd" Type="Int32" Nullable="false" />
+          <Property Name="dtUtilizacao" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="PontuacaoFatura">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="taxaConversao_id" Type="Int32" Nullable="false" />
+          <Property Name="fatura_id" Type="Int32" Nullable="false" />
+          <Property Name="pontosQtd" Type="Int32" Nullable="false" />
+          <Property Name="cartao_id" Type="Int32" Nullable="false" />
+          <Property Name="dtInclusao" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="TaxaConversao" Relationship="Self.FK_Pontuacao_TaxaConversao" FromRole="PontuacaoFatura" ToRole="TaxaConversao" />
+          <Property Name="dtVigencia" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="TaxaConversao">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="taxaValor" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="dtInclusao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dtVigencia" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="PontuacaoFatura" Relationship="Self.FK_Pontuacao_TaxaConversao" FromRole="TaxaConversao" ToRole="PontuacaoFatura" />
+          <Property Name="diasValidade" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Pontuacao_TaxaConversao">
+          <End Role="TaxaConversao" Type="Self.TaxaConversao" Multiplicity="1" />
+          <End Role="PontuacaoFatura" Type="Self.PontuacaoFatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaxaConversao">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PontuacaoFatura">
+              <PropertyRef Name="taxaConversao_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DebitoPontos" EntityType="Self.DebitoPontos" />
+          <EntitySet Name="PontuacaoFatura" EntityType="Self.PontuacaoFatura" />
+          <EntitySet Name="TaxaConversao" EntityType="Self.TaxaConversao" />
+          <AssociationSet Name="FK_Pontuacao_TaxaConversao" Association="Self.FK_Pontuacao_TaxaConversao">
+            <End Role="TaxaConversao" EntitySet="TaxaConversao" />
+            <End Role="PontuacaoFatura" EntitySet="PontuacaoFatura" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PontuacaoModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="DebitoPontos">
+            <EntityTypeMapping TypeName="PontuacaoModel.DebitoPontos">
+              <MappingFragment StoreEntitySet="DebitoPontos">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="fatura_id" ColumnName="fatura_id" />
+                <ScalarProperty Name="cartao_id" ColumnName="cartao_id" />
+                <ScalarProperty Name="pontosQtd" ColumnName="pontosQtd" />
+                <ScalarProperty Name="dtUtilizacao" ColumnName="dtUtilizacao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PontuacaoFatura">
+            <EntityTypeMapping TypeName="PontuacaoModel.PontuacaoFatura">
+              <MappingFragment StoreEntitySet="PontuacaoFatura">
+                <ScalarProperty Name="dtVigencia" ColumnName="dtVigencia" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="taxaConversao_id" ColumnName="taxaConversao_id" />
+                <ScalarProperty Name="fatura_id" ColumnName="fatura_id" />
+                <ScalarProperty Name="pontosQtd" ColumnName="pontosQtd" />
+                <ScalarProperty Name="cartao_id" ColumnName="cartao_id" />
+                <ScalarProperty Name="dtInclusao" ColumnName="dtInclusao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaxaConversao">
+            <EntityTypeMapping TypeName="PontuacaoModel.TaxaConversao">
+              <MappingFragment StoreEntitySet="TaxaConversao">
+                <ScalarProperty Name="diasValidade" ColumnName="diasValidade" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="taxaValor" ColumnName="taxaValor" />
+                <ScalarProperty Name="dtInclusao" ColumnName="dtInclusao" />
+                <ScalarProperty Name="dtVigencia" ColumnName="dtVigencia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
