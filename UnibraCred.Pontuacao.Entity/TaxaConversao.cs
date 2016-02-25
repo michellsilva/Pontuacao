@@ -11,26 +11,19 @@ namespace UnibraCred.Pontuacao.Entity
 {
     using System;
     using System.Collections.Generic;
-    using System.Runtime.Serialization;
     
-    [DataContract]
-    public class TaxaConversao
+    public partial class TaxaConversao
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TaxaConversao()
         {
             this.PontuacaoFatura = new HashSet<PontuacaoFatura>();
         }
-
-        [DataMember]
+    
         public int id { get; set; }
-        [DataMember]
         public decimal taxaValor { get; set; }
-        [DataMember]
         public System.DateTime dtInclusao { get; set; }
-        [DataMember]
         public System.DateTime dtVigencia { get; set; }
-        [DataMember]
         public int diasValidade { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

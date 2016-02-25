@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnibraCred.Pontuacao.Entity;
 using UnibraCred.Pontuacao.Persistencia;
+using UnibraCred.Pontuacao.Persistencia.basic;
 using UnibraCred.Pontuacao.Persistencia.business;
 
 namespace UnibraCred.Pontuacao.Facade
@@ -52,9 +53,28 @@ namespace UnibraCred.Pontuacao.Facade
 
 
 
-        public PontuacaoFatura pontosPorFatura(int faturaId)
+        public PontuacaoFatura pontosPorFatura(Fatura fatura)
         {
-            return pontuacaoBusiness.pontosPorFatura(faturaId);
+            try
+            {
+                return pontuacaoBusiness.pontosPorFatura(fatura);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void pontuarFatura(Fatura fatura)
+        {
+            try
+            {
+                pontuacaoBusiness.pontuarFatura(fatura);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

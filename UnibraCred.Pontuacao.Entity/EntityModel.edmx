@@ -4,61 +4,61 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="PontuacaoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="DebitoPontos">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="fatura_id" Type="int" Nullable="false" />
-          <Property Name="cartao_id" Type="int" Nullable="false" />
-          <Property Name="pontosQtd" Type="int" Nullable="false" />
-          <Property Name="dtUtilizacao" Type="datetime" Nullable="false" />
-        </EntityType>
-        <EntityType Name="PontuacaoFatura">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="taxaConversao_id" Type="int" Nullable="false" />
-          <Property Name="fatura_id" Type="int" Nullable="false" />
-          <Property Name="pontosQtd" Type="int" Nullable="false" />
-          <Property Name="cartao_id" Type="int" Nullable="false" />
-          <Property Name="dtInclusao" Type="datetime" Nullable="false" />
-          <Property Name="dtVigencia" Type="datetime" Nullable="false" />
-        </EntityType>
-        <EntityType Name="TaxaConversao">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="taxaValor" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="dtInclusao" Type="datetime" Nullable="false" />
-          <Property Name="dtVigencia" Type="datetime" Nullable="false" />
-          <Property Name="diasValidade" Type="int" Nullable="false" />
-        </EntityType>
-        <Association Name="FK_Pontuacao_TaxaConversao">
-          <End Role="TaxaConversao" Type="Self.TaxaConversao" Multiplicity="1" />
-          <End Role="PontuacaoFatura" Type="Self.PontuacaoFatura" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TaxaConversao">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="PontuacaoFatura">
-              <PropertyRef Name="taxaConversao_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="PontuacaoModelStoreContainer">
-          <EntitySet Name="DebitoPontos" EntityType="Self.DebitoPontos" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PontuacaoFatura" EntityType="Self.PontuacaoFatura" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TaxaConversao" EntityType="Self.TaxaConversao" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Pontuacao_TaxaConversao" Association="Self.FK_Pontuacao_TaxaConversao">
-            <End Role="TaxaConversao" EntitySet="TaxaConversao" />
-            <End Role="PontuacaoFatura" EntitySet="PontuacaoFatura" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema></edmx:StorageModels>
+    <Schema Namespace="PontuacaoModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="PontuacaoModelStoreContainer">
+    <EntitySet Name="DebitoPontos" EntityType="PontuacaoModel.Store.DebitoPontos" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PontuacaoFatura" EntityType="PontuacaoModel.Store.PontuacaoFatura" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TaxaConversao" EntityType="PontuacaoModel.Store.TaxaConversao" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Pontuacao_TaxaConversao" Association="PontuacaoModel.Store.FK_Pontuacao_TaxaConversao">
+      <End Role="TaxaConversao" EntitySet="TaxaConversao" />
+      <End Role="PontuacaoFatura" EntitySet="PontuacaoFatura" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="DebitoPontos">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fatura_id" Type="int" Nullable="false" />
+    <Property Name="cartao_id" Type="int" Nullable="false" />
+    <Property Name="pontosQtd" Type="int" Nullable="false" />
+    <Property Name="dtUtilizacao" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PontuacaoFatura">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="taxaConversao_id" Type="int" Nullable="false" />
+    <Property Name="fatura_id" Type="int" Nullable="false" />
+    <Property Name="pontosQtd" Type="int" Nullable="false" />
+    <Property Name="cartao_id" Type="int" Nullable="false" />
+    <Property Name="dtInclusao" Type="datetime" Nullable="false" />
+    <Property Name="dtVigencia" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TaxaConversao">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="taxaValor" Type="decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="dtInclusao" Type="datetime" Nullable="false" />
+    <Property Name="dtVigencia" Type="datetime" Nullable="false" />
+    <Property Name="diasValidade" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Pontuacao_TaxaConversao">
+    <End Role="TaxaConversao" Type="PontuacaoModel.Store.TaxaConversao" Multiplicity="1" />
+    <End Role="PontuacaoFatura" Type="PontuacaoModel.Store.PontuacaoFatura" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TaxaConversao">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="PontuacaoFatura">
+        <PropertyRef Name="taxaConversao_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PontuacaoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -121,46 +121,45 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="PontuacaoModelStoreContainer" CdmEntityContainer="Entities">
-          <EntitySetMapping Name="DebitoPontos">
-            <EntityTypeMapping TypeName="PontuacaoModel.DebitoPontos">
-              <MappingFragment StoreEntitySet="DebitoPontos">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="fatura_id" ColumnName="fatura_id" />
-                <ScalarProperty Name="cartao_id" ColumnName="cartao_id" />
-                <ScalarProperty Name="pontosQtd" ColumnName="pontosQtd" />
-                <ScalarProperty Name="dtUtilizacao" ColumnName="dtUtilizacao" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PontuacaoFatura">
-            <EntityTypeMapping TypeName="PontuacaoModel.PontuacaoFatura">
-              <MappingFragment StoreEntitySet="PontuacaoFatura">
-                <ScalarProperty Name="dtVigencia" ColumnName="dtVigencia" />
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="taxaConversao_id" ColumnName="taxaConversao_id" />
-                <ScalarProperty Name="fatura_id" ColumnName="fatura_id" />
-                <ScalarProperty Name="pontosQtd" ColumnName="pontosQtd" />
-                <ScalarProperty Name="cartao_id" ColumnName="cartao_id" />
-                <ScalarProperty Name="dtInclusao" ColumnName="dtInclusao" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TaxaConversao">
-            <EntityTypeMapping TypeName="PontuacaoModel.TaxaConversao">
-              <MappingFragment StoreEntitySet="TaxaConversao">
-                <ScalarProperty Name="diasValidade" ColumnName="diasValidade" />
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="taxaValor" ColumnName="taxaValor" />
-                <ScalarProperty Name="dtInclusao" ColumnName="dtInclusao" />
-                <ScalarProperty Name="dtVigencia" ColumnName="dtVigencia" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PontuacaoModelStoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="DebitoPontos">
+      <EntityTypeMapping TypeName="IsTypeOf(PontuacaoModel.DebitoPontos)">
+        <MappingFragment StoreEntitySet="DebitoPontos">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="fatura_id" ColumnName="fatura_id" />
+          <ScalarProperty Name="cartao_id" ColumnName="cartao_id" />
+          <ScalarProperty Name="pontosQtd" ColumnName="pontosQtd" />
+          <ScalarProperty Name="dtUtilizacao" ColumnName="dtUtilizacao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PontuacaoFatura">
+      <EntityTypeMapping TypeName="IsTypeOf(PontuacaoModel.PontuacaoFatura)">
+        <MappingFragment StoreEntitySet="PontuacaoFatura">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="taxaConversao_id" ColumnName="taxaConversao_id" />
+          <ScalarProperty Name="fatura_id" ColumnName="fatura_id" />
+          <ScalarProperty Name="pontosQtd" ColumnName="pontosQtd" />
+          <ScalarProperty Name="cartao_id" ColumnName="cartao_id" />
+          <ScalarProperty Name="dtInclusao" ColumnName="dtInclusao" />
+          <ScalarProperty Name="dtVigencia" ColumnName="dtVigencia" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TaxaConversao">
+      <EntityTypeMapping TypeName="IsTypeOf(PontuacaoModel.TaxaConversao)">
+        <MappingFragment StoreEntitySet="TaxaConversao">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="taxaValor" ColumnName="taxaValor" />
+          <ScalarProperty Name="dtInclusao" ColumnName="dtInclusao" />
+          <ScalarProperty Name="dtVigencia" ColumnName="dtVigencia" />
+          <ScalarProperty Name="diasValidade" ColumnName="diasValidade" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -174,7 +173,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>

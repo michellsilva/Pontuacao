@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnibraCred.Pontuacao.Entity;
+using UnibraCred.Pontuacao.Persistencia.basic;
 using UnibraCred.Pontuacao.Persistencia.dao;
 
 namespace UnibraCred.Pontuacao.Persistencia.business
@@ -50,27 +51,63 @@ namespace UnibraCred.Pontuacao.Persistencia.business
             return retorno;
         }
 
-        public PontuacaoFatura pontosPorFatura(int faturaId)
+        //Verifica quantos pontos uma fatura gerou
+        public PontuacaoFatura pontosPorFatura(Fatura fatura)
         {
             PontuacaoFatura pontuacao = new PontuacaoFatura();
-            if (faturaCadastrada(faturaId))
+            if (faturaCadastrada(fatura.id))
             {
-                pontuacao = pd.obterPontuacaoPorFatura(faturaId);
+                pontuacao = pd.obterPontuacaoPorFatura(fatura.id);
                 return pontuacao;
             }
             else
             {
-                //cadastra fatura e gerar pontos
+                throw new Exception("Fatura não pontuada");
             }
-            return null;
+
         }
 
-        public void gerarPontos()
+        public void pontuarFatura(Fatura fatura)
         {
-            TaxaConversao taxaConversao = tc.obterTaxaConversaoAtual();
+            PontuacaoFatura pontuacao = new PontuacaoFatura();
+            if (!faturaCadastrada(fatura.id))
+            {
+                FaturaDAO faturaDAO = new FaturaDAO();
+                fatura = faturaDAO.obterFatura(fatura.id);
+                if (fatura != null)
+                {
+                    gerarPontos(fatura);
+                }
+                else
+                {
+                    throw new Exception("Fatura não encontrada");
+                }
+            }
+            else
+            {
+                throw new Exception("Pontuação já efetuada anteriormente para esta fatura");
 
+            }
         }
 
+        //Gera pontos e solicita inserção no BD;
+        public PontuacaoFatura gerarPontos(Fatura fatura)
+        {
+            PontuacaoFatura pontuacaoCalculada = new PontuacaoFatura();
+            TaxaConversao taxaConversao = tc.obterTaxaConversaoAtual();
+            int pontos = Convert.ToInt16(taxaConversao.taxaValor * fatura.valor);
+            pontuacaoCalculada.pontosQtd = pontos;
+            //pontuacaoCalculada. = fatura.valor;
+            pontuacaoCalculada.TaxaConversao = taxaConversao;
+            pontuacaoCalculada.dtVigencia = DateTime.Now.AddDays(365);
+            pontuacaoCalculada.cartao_id = fatura.cartaoId;
+            pontuacaoCalculada.fatura_id = fatura.id;
+
+
+            return pd.inserirPontuacao(pontuacaoCalculada);
+        }
+
+        //Verifica se já houve pontuação para a fatura solicitada.
         public bool faturaCadastrada(int faturaId)
         {
             if (pd.obterPontuacaoPorFatura(faturaId) != null)

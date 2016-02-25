@@ -24,5 +24,8 @@ namespace UnibraCred.Pontuacao.Service
 
         [OperationContract]
         string pontosPorFatura(int faturaId);
+
+        [OperationContract]
+        string pontuarFatura(int faturaId);
     }
 }

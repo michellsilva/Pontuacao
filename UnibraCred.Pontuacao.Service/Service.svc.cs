@@ -13,6 +13,8 @@ using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
+using UnibraCred.Pontuacao.Persistencia.basic;
+
 
 namespace UnibraCred.Pontuacao.Service
 {
@@ -123,8 +125,33 @@ namespace UnibraCred.Pontuacao.Service
 
         public string pontosPorFatura(int faturaId)
         {
-            return "não implementado";
+            try
+            {
+                return fachada.pontosPorFatura(new Fatura { id = faturaId }).ToString();
+            }
+            catch (Exception ex)
+            {
+                RetornoPadrao resultado = new RetornoPadrao();
+                resultado.sucesso = false;
+                resultado.retorno = ex.Message;
+                return ex.Message;
+            }
         }
 
+        public string pontuarFatura(int faturaId)
+        {
+            try
+            {
+                fachada.pontuarFatura(new Fatura { id = faturaId });
+            }
+            catch (Exception ex)
+            {
+                RetornoPadrao resultado = new RetornoPadrao();
+                resultado.sucesso = false;
+                resultado.retorno = ex.Message;
+                return ex.Message;
+            }
+            return "Fatura pontuada!";
+        }
     }
 }

@@ -11,20 +11,13 @@ namespace UnibraCred.Pontuacao.Entity
 {
     using System;
     using System.Collections.Generic;
-    using System.Runtime.Serialization;
     
-    [DataContract]
-    public class DebitoPontos
+    public partial class DebitoPontos
     {
-        [DataMember]
         public int id { get; set; }
-        [DataMember]
         public int fatura_id { get; set; }
-        [DataMember]
         public int cartao_id { get; set; }
-        [DataMember]
         public int pontosQtd { get; set; }
-        [DataMember]
         public System.DateTime dtUtilizacao { get; set; }
     }
 }

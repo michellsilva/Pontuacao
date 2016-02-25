@@ -50,23 +50,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="basic\Fatura.cs" />
     <Compile Include="business\PontuacaoBusiness.cs" />
     <Compile Include="dao\DebitoPontosDAO.cs" />
+    <Compile Include="dao\FaturaDAO.cs" />
     <Compile Include="dao\PontuacaoDAO.cs" />
     <Compile Include="dao\Store.cs" />
     <Compile Include="dao\TaxaConversaoDAO.cs" />
+    <Compile Include="interfaces\IFaturaDAO.cs" />
+    <Compile Include="interfaces\IPontuacaoDAO.cs" />
+    <Compile Include="interfaces\ITaxaConversaoDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="basic\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\UnibraCred.Pontuacao.Entity\UnibraCred.Pontuacao.Entity.csproj">
       <Project>{ed5c8631-a4ec-4251-9748-061133abec13}</Project>

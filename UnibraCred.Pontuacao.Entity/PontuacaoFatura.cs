@@ -11,24 +11,15 @@ namespace UnibraCred.Pontuacao.Entity
 {
     using System;
     using System.Collections.Generic;
-    using System.Runtime.Serialization;
     
-    [DataContract]
-    public class PontuacaoFatura
+    public partial class PontuacaoFatura
     {
-        [DataMember]
         public int id { get; set; }
-        [DataMember]
         public int taxaConversao_id { get; set; }
-        [DataMember]
         public int fatura_id { get; set; }
-        [DataMember]
         public int pontosQtd { get; set; }
-        [DataMember]
         public int cartao_id { get; set; }
-        [DataMember]
         public System.DateTime dtInclusao { get; set; }
-        [DataMember]
         public System.DateTime dtVigencia { get; set; }
     
         public virtual TaxaConversao TaxaConversao { get; set; }

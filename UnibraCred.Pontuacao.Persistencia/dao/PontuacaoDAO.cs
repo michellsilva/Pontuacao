@@ -49,11 +49,22 @@ namespace UnibraCred.Pontuacao.Persistencia.dao
             return retorno;
         }
 
-
-
-        public string pontosPorFatura(int faturaId)
+        public PontuacaoFatura inserirPontuacao(PontuacaoFatura pontuacao)
         {
-            return "não implementado";
+
+            try
+            {
+                Store context = new Store();
+                PontuacaoFatura pontuacaoInserida = context.PontuacaoFatura.Add(pontuacao);
+                context.SaveChanges();
+                context.Dispose();
+                return pontuacaoInserida;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
         }
 
         public PontuacaoFatura obterPontuacaoPorFatura(int faturaId)
