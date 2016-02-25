@@ -1,18 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.ServiceModel.Web;
-using System.Text;
-using System.Web.Services;
 using UnibraCred.Pontuacao.Entity;
 using UnibraCred.Pontuacao.Facade;
 using System.Web.Script.Serialization;
-using System.IO;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Schema;
 using UnibraCred.Pontuacao.Persistencia.basic;
 
 
@@ -24,102 +15,59 @@ namespace UnibraCred.Pontuacao.Service
     {
         private Fachada fachada = new Fachada();
 
-        [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        public string obterTotalPontos(string inJson)
+        public string obterTotalPontos(string value)
         {
-
-            var json = "";
+            string json = "";
             try
             {
-
-                JSchema schema = JSchema.Parse(@"{
-                    'cartao_Id': {'type':'string'}
-                  }
-                }");
-
-                JSchema user = JSchema.Parse(inJson);
-                PontuacaoFatura pont = JsonConvert.DeserializeObject<PontuacaoFatura>(inJson);
-                var totalPontos = fachada.obterTotalPontos(pont.cartao_id);
-
-
-
-                JavaScriptSerializer jss = new JavaScriptSerializer();
-
-
-                json = "{return: " + totalPontos + "}";
-
-                //json = JsonConvert.SerializeObject(fachada.obterTotalPontos(pont.cartao_id), Formatting.Indented);
-
-                // serialize JSON to a string and then write string to a file
-                File.WriteAllText(@"C:\Users\Lenovo\Documents\Pos Engenharia Software\Pontuacao2.0\Pontuacao\movie.json", JsonConvert.SerializeObject(json));
-
-                // serialize JSON directly to a file
-                using (StreamWriter file = File.CreateText(@"C:\Users\Lenovo\Documents\Pos Engenharia Software\Pontuacao2.0\Pontuacao\movie.json"))
+                json = fachada.validarJson(value);
+                if (json == null)
                 {
-                    JsonSerializer serializer = new JsonSerializer();
-                    serializer.Serialize(file, json);
-                }
-                return json;
+                    PontuacaoFatura pont = JsonConvert.DeserializeObject<PontuacaoFatura>(value);
+                    var totalPontos = fachada.obterTotalPontos(pont.cartao_id);
 
-            }
-            catch (FormatException ex)
-            {
-                ex.ToString();
+                    JavaScriptSerializer jss = new JavaScriptSerializer();
+                    json = "{status:1, return:" + totalPontos + "}";
+
+                    //json = JsonConvert.SerializeObject(fachada.obterTotalPontos(pont.cartao_id), Formatting.Indented);
+
+                    // serialize JSON to a string and then write string to a file
+                    //    File.WriteAllText(@"C:\Users\Lenovo\Documents\Pos Engenharia Software\Pontuacao2.0\Pontuacao\movie.json", JsonConvert.SerializeObject(json));
+
+                    // serialize JSON directly to a file
+                    //using (StreamWriter file = File.CreateText(@"C:\Users\Lenovo\Documents\Pos Engenharia Software\Pontuacao2.0\Pontuacao\movie.json"))
+                    //{
+                    //    JsonSerializer serializer = new JsonSerializer();
+                    //    serializer.Serialize(file, json);
+                    //}
+                }
+
             }
             catch (Exception ex)
             {
                 ex.ToString();
+                return "{status:0, return:" + "erro interno. desculpe, tente novamente" + "}";
             }
             return json;
         }
 
-        [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        public List<PontuacaoFatura> obterTotalDetalhes(int cartaoId)
+        public string obterTotalPontosDetalhes(string value)
         {
-            PontuacaoFatura retorno = new PontuacaoFatura();
-            return fachada.LitartodosDetalhes(cartaoId);
-            //var json = "";
+            List<PontuacaoFatura> retorno = new List<PontuacaoFatura>();
+            PontuacaoFatura pont = JsonConvert.DeserializeObject<PontuacaoFatura>(value);
+            retorno = fachada.LitartodosDetalhes(pont.cartao_id);
+            string json = JsonConvert.SerializeObject(retorno);
+            ////serialize JSON to a string and then write string to a file
+            //File.WriteAllText(@"C:\Users\Lenovo\Documents\Pos Engenharia Software\Pontuacao2.0\Pontuacao\movie.json", JsonConvert.SerializeObject(json));
 
-            //try
+            ////   serialize JSON directly to a file
+            //using (StreamWriter file = File.CreateText(@"C:\Users\Lenovo\Documents\Pos Engenharia Software\Pontuacao2.0\Pontuacao\movie.json"))
             //{
-            //    JavaScriptSerializer jss = new JavaScriptSerializer();
-
-            //    List<PontuacaoFatura> obj = fachada.LitartodosDetalhes(cartaoId);
-
-            //    json = JsonConvert.SerializeObject(obj, Formatting.Indented);
-            //    //foreach (var item in obj)
-            //    //{
-            //    //    retorno.cartao_id = item.cartao_id;
-            //    //retorno.fatura_id = item.fatura_id;
-            //    //retorno.dtInclusao = item.dtInclusao;
-            //    //retorno.pontosQtd = item.pontosQtd;
-            //    //json += JsonConvert.SerializeObject(retorno, Formatting.Indented);
-            //    //}
-
-            //    //retorno.cartao_id = obj.cartao_id;
-            //    //retorno.fatura_id = obj.fatura_id;
-            //    //retorno.dtInclusao = obj.dtInclusao;
-            //    //retorno.pontosQtd = obj.pontosQtd;
-            //    //json = JsonConvert.SerializeObject(retorno, Formatting.Indented);
-
-
-
-            //    // serialize JSON to a string and then write string to a file
-            //    File.WriteAllText(@"C:\Users\Lenovo\Documents\Pos Engenharia Software\Pontuacao2.0\Pontuacao\movie.json", JsonConvert.SerializeObject(retorno));
-
-            //    // serialize JSON directly to a file
-            //    using (StreamWriter file = File.CreateText(@"C:\Users\Lenovo\Documents\Pos Engenharia Software\Pontuacao2.0\Pontuacao\movie.json"))
-            //    {
-            //        JsonSerializer serializer = new JsonSerializer();
-            //        serializer.Serialize(file, retorno);
-            //    }
-            //    return json;
+            //    JsonSerializer serializer = new JsonSerializer();
+            //    serializer.Serialize(file, json);
             //}
-            //catch (Exception ex)
-            //{
-            //    ex.ToString();
-            //}
-            //return json;
+            return json;
+
         }
 
 

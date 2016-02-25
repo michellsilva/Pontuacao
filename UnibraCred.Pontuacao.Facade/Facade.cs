@@ -19,7 +19,20 @@ namespace UnibraCred.Pontuacao.Facade
             pontuacaoBusiness = new PontuacaoBusiness();
         }
 
+        public string validarJson(string cartaoId)
+        {
+            string retorno = "";
+            try
+            {
+                return pontuacaoBusiness.validarJson(cartaoId);
+            }
+            catch (Exception ex)
+            {
 
+                ex.ToString();
+            }
+            return retorno;
+        }
 
         public int obterTotalPontos(int cartaoId)
         {

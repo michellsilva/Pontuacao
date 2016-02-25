@@ -15,6 +15,27 @@ namespace UnibraCred.Pontuacao.Persistencia.business
         TaxaConversaoDAO tc = new TaxaConversaoDAO();
         DebitoPontosDAO dbP = new DebitoPontosDAO();
 
+        public string validarJson(string value)
+        {
+            string retorno = "{status:0, return:";
+
+            try
+            {
+                if (value == null)
+                    retorno += "a consulta nao pode ser vazia" + "}";
+                else if (!value.StartsWith("{cartao_id:") && !value.EndsWith("}"))
+                    retorno += "formato de entrada do JSON invalido}";
+                else
+                    retorno = null;
+            }
+            catch (Exception ex)
+            {
+                ex.ToString();
+                retorno += "erro interno. desculpe, tente novamente" + "}";
+            }
+            return retorno;
+        }
+
         public int obterTotalPontos(int cartaoId)
         {
             pd = new PontuacaoDAO();

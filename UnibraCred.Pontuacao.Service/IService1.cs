@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
+﻿using System.ServiceModel;
 using System.ServiceModel.Web;
-using System.Text;
-using UnibraCred.Pontuacao.Entity;
 
 namespace UnibraCred.Pontuacao.Service
 {
@@ -14,13 +8,13 @@ namespace UnibraCred.Pontuacao.Service
     public interface IService
     {
 
-        [WebGet(ResponseFormat=WebMessageFormat.Json)]
         [OperationContract]
-        string obterTotalPontos(string inJson);
+        [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        string obterTotalPontos(string value);
 
-        [WebGet(ResponseFormat = WebMessageFormat.Json)]
+        [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         [OperationContract]
-        List<PontuacaoFatura> obterTotalDetalhes(int cartaoId);
+        string obterTotalPontosDetalhes(string value);
 
         [OperationContract]
         string pontosPorFatura(int faturaId);
