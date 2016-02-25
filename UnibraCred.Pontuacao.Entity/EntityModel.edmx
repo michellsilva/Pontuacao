@@ -81,9 +81,9 @@
           <Property Name="fatura_id" Type="Int32" Nullable="false" />
           <Property Name="pontosQtd" Type="Int32" Nullable="false" />
           <Property Name="cartao_id" Type="Int32" Nullable="false" />
-          <Property Name="dtInclusao" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="TaxaConversao" Relationship="Self.FK_Pontuacao_TaxaConversao" FromRole="PontuacaoFatura" ToRole="TaxaConversao" />
-          <Property Name="dtVigencia" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dtInclusao" Type="DateTime" Nullable="false" />
+          <Property Name="dtVigencia" Type="DateTime" Nullable="false" />
         </EntityType>
         <EntityType Name="TaxaConversao">
           <Key>
@@ -117,6 +117,9 @@
             <End Role="PontuacaoFatura" EntitySet="PontuacaoFatura" />
           </AssociationSet>
         </EntityContainer>
+        <ComplexType Name="ComplexType1">
+          <Property Type="DateTime" Name="dtInclusao" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

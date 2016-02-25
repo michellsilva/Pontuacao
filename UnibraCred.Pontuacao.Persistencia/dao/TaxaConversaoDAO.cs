@@ -16,8 +16,16 @@ namespace UnibraCred.Pontuacao.Persistencia.dao
             {
                 using (context)
                 {
-                    var query = context.TaxaConversao.OrderByDescending(item => item.dtVigencia).First();
-                    return query;
+                    int qtdRegistros = context.TaxaConversao.Count();
+                    if (qtdRegistros > 0)
+                    {
+                        var query = context.TaxaConversao.OrderByDescending(item => item.dtVigencia).First();
+                        return query;
+                    }
+                    else
+                    {
+                        return null;
+                    }                    
                 }
             }
             catch (Exception ex)

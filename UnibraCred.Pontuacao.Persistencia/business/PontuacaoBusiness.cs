@@ -95,6 +95,10 @@ namespace UnibraCred.Pontuacao.Persistencia.business
         {
             PontuacaoFatura pontuacaoCalculada = new PontuacaoFatura();
             TaxaConversao taxaConversao = tc.obterTaxaConversaoAtual();
+            if (taxaConversao == null)
+            {
+                throw new Exception("Não há taxa de conversão cadastrada");
+            }
             int pontos = Convert.ToInt16(taxaConversao.taxaValor * fatura.valor);
             pontuacaoCalculada.pontosQtd = pontos;
             //pontuacaoCalculada. = fatura.valor;
