@@ -17,16 +17,16 @@ namespace UnibraCred.Pontuacao.Persistencia.business
 
         public string validarJson(string value)
         {
-            string retorno = "{status:0, return:";
+            string retorno = "{status:0, response:";
 
             try
             {
                 if (value == null)
                     retorno += "a consulta nao pode ser vazia" + "}";
-                else if (!value.StartsWith("{cartao_id:") && !value.EndsWith("}"))
-                    retorno += "formato de entrada do JSON invalido}";
-                else
+                else if (value.StartsWith("{cartao_Id:") && value.EndsWith("}"))
                     retorno = null;
+                else
+                    retorno = "formato de entrada do JSON invalido}";
             }
             catch (Exception ex)
             {
