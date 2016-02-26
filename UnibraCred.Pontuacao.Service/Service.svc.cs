@@ -90,7 +90,7 @@ namespace UnibraCred.Pontuacao.Service
             {
                 resultado.status = 0;
                 resultado.response = ex.Message;
-                return ex.Message;
+                return Json.Encode(resultado);
             }
         }
 
@@ -109,17 +109,12 @@ namespace UnibraCred.Pontuacao.Service
 
             }
             catch (Exception ex)
-            {
-                
+            {                
                 resultado.status = 0;
                 resultado.response = ex.Message;
-                return ex.Message;
+                return Json.Encode(resultado);
             }
             
         }
-
-
-       
-        
     }
 }
