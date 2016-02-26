@@ -55,6 +55,10 @@ namespace UnibraCred.Pontuacao.Persistencia.dao
             try
             {
                 Store context = new Store();
+
+                //Retirando milisegundos para evitar problema entre datetime2(app) e datetime(sql)                
+                pontuacao.dtVigencia = pontuacao.dtVigencia.AddMilliseconds(-pontuacao.dtVigencia.Millisecond);
+                
                 PontuacaoFatura pontuacaoInserida = context.PontuacaoFatura.Add(pontuacao);
                 context.SaveChanges();
                 context.Dispose();

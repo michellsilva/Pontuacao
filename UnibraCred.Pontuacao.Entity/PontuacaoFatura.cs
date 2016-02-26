@@ -19,8 +19,8 @@ namespace UnibraCred.Pontuacao.Entity
         public int fatura_id { get; set; }
         public int pontosQtd { get; set; }
         public int cartao_id { get; set; }
-        public System.DateTime dtInclusao { get; set; }
-        public System.DateTime dtVigencia { get; set; }
+        public DateTime dtInclusao { get; set; }
+        public DateTime dtVigencia { get; set; }
     
         public virtual TaxaConversao TaxaConversao { get; set; }
     }

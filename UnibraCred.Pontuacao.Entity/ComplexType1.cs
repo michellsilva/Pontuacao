@@ -13,6 +13,6 @@ namespace UnibraCred.Pontuacao.Entity
     
     public partial class ComplexType1
     {
-        public System.DateTime dtInclusao { get; set; }
+        public DateTime dtInclusao { get; set; }
     }
 }

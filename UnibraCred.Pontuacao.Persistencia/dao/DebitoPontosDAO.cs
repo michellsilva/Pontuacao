@@ -11,7 +11,7 @@ namespace UnibraCred.Pontuacao.Persistencia.dao
     {
         Store context;
 
-        public int totalDebitos(DateTime dtInicial)
+        public int totalDebitos(Nullable<DateTime> dtInicial)
         {
             int retorno = 0;
 

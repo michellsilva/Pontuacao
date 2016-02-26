@@ -124,6 +124,7 @@ namespace UnibraCred.Pontuacao.Persistencia.business
             pontuacaoCalculada.pontosQtd = pontos;
             //pontuacaoCalculada. = fatura.valor;
             pontuacaoCalculada.TaxaConversao = taxaConversao;
+            pontuacaoCalculada.dtInclusao = DateTime.Now;
             pontuacaoCalculada.dtVigencia = DateTime.Now.AddDays(365);
             pontuacaoCalculada.cartao_id = fatura.cartaoId;
             pontuacaoCalculada.fatura_id = fatura.id;
