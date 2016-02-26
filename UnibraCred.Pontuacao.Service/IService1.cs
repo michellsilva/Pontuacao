@@ -16,10 +16,12 @@ namespace UnibraCred.Pontuacao.Service
         [OperationContract]
         string obterTotalPontosDetalhes(string value);
 
+        [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         [OperationContract]
-        string pontosPorFatura(int faturaId);
+        string pontosPorFatura(string faturaJson);
 
+        [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         [OperationContract]
-        string pontuarFatura(int faturaId);
+        string pontuarFatura(string faturaJson);
     }
 }

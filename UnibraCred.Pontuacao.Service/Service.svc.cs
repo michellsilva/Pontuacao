@@ -5,6 +5,7 @@ using UnibraCred.Pontuacao.Facade;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json;
 using UnibraCred.Pontuacao.Persistencia.basic;
+using System.Web.Helpers;
 
 
 namespace UnibraCred.Pontuacao.Service
@@ -71,35 +72,54 @@ namespace UnibraCred.Pontuacao.Service
         }
 
 
-        public string pontosPorFatura(int faturaId)
+        public string pontosPorFatura(string faturaJson)
         {
+            RetornoPadrao resultado = new RetornoPadrao(); 
             try
             {
-                return fachada.pontosPorFatura(new Fatura { id = faturaId }).ToString();
+                JavaScriptSerializer json_serializer = new JavaScriptSerializer();
+                Fatura fatura = Json.Decode<Fatura>(faturaJson);   
+
+                PontuacaoFatura pontuacao = fachada.pontosPorFatura(fatura);
+
+                resultado.sucesso = true;
+                resultado.retorno = pontuacao.pontosQtd.ToString();
+                return Json.Encode(resultado);
             }
             catch (Exception ex)
-            {
-                RetornoPadrao resultado = new RetornoPadrao();
+            {                
                 resultado.sucesso = false;
                 resultado.retorno = ex.Message;
                 return ex.Message;
             }
         }
 
-        public string pontuarFatura(int faturaId)
+        public string pontuarFatura(string faturaJson)
         {
+            RetornoPadrao resultado = new RetornoPadrao();
             try
             {
-                fachada.pontuarFatura(new Fatura { id = faturaId });
+                JavaScriptSerializer json_serializer = new JavaScriptSerializer();
+                Fatura fatura = Json.Decode<Fatura>(faturaJson);                
+                fachada.pontuarFatura(fatura);              
+
+                resultado.sucesso = true;
+                resultado.retorno = "Fatura pontuada!";
+                return Json.Encode(resultado);
+
             }
             catch (Exception ex)
             {
-                RetornoPadrao resultado = new RetornoPadrao();
+                
                 resultado.sucesso = false;
                 resultado.retorno = ex.Message;
                 return ex.Message;
             }
-            return "Fatura pontuada!";
+            
         }
+
+
+       
+        
     }
 }
