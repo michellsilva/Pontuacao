@@ -28,7 +28,7 @@ namespace UnibraCred.Pontuacao.Service
                     var totalPontos = fachada.obterTotalPontos(pont.cartao_id);
 
                     JavaScriptSerializer jss = new JavaScriptSerializer();
-                    json = "{status:1, return:" + totalPontos + "}";
+                    json = "{status:1, response:" + totalPontos + "}";
 
                     //json = JsonConvert.SerializeObject(fachada.obterTotalPontos(pont.cartao_id), Formatting.Indented);
 
@@ -47,7 +47,7 @@ namespace UnibraCred.Pontuacao.Service
             catch (Exception ex)
             {
                 ex.ToString();
-                return "{status:0, return:" + "erro interno. desculpe, tente novamente" + "}";
+                return "{status:0, response:" + "erro interno. desculpe, tente novamente" + "}";
             }
             return json;
         }
@@ -82,14 +82,14 @@ namespace UnibraCred.Pontuacao.Service
 
                 PontuacaoFatura pontuacao = fachada.pontosPorFatura(fatura);
 
-                resultado.sucesso = true;
-                resultado.retorno = pontuacao.pontosQtd.ToString();
+                resultado.status = 1;
+                resultado.response = pontuacao.pontosQtd.ToString();
                 return Json.Encode(resultado);
             }
             catch (Exception ex)
-            {                
-                resultado.sucesso = false;
-                resultado.retorno = ex.Message;
+            {
+                resultado.status = 0;
+                resultado.response = ex.Message;
                 return ex.Message;
             }
         }
@@ -103,16 +103,16 @@ namespace UnibraCred.Pontuacao.Service
                 Fatura fatura = Json.Decode<Fatura>(faturaJson);                
                 fachada.pontuarFatura(fatura);              
 
-                resultado.sucesso = true;
-                resultado.retorno = "Fatura pontuada!";
+                resultado.status = 1;
+                resultado.response = "Fatura pontuada!";
                 return Json.Encode(resultado);
 
             }
             catch (Exception ex)
             {
                 
-                resultado.sucesso = false;
-                resultado.retorno = ex.Message;
+                resultado.status = 0;
+                resultado.response = ex.Message;
                 return ex.Message;
             }
             

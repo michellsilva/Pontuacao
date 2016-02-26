@@ -7,7 +7,7 @@ namespace UnibraCred.Pontuacao.Service
 {
     public class RetornoPadrao
     {
-        public bool sucesso;
-        public string retorno;
+        public int status;
+        public string response;
     }
 }
