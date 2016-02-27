@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="basic\Fatura.cs" />
+    <Compile Include="basic\FaturaDetalhada.cs" />
     <Compile Include="business\PontuacaoBusiness.cs" />
     <Compile Include="dao\DebitoPontosDAO.cs" />
     <Compile Include="dao\FaturaDAO.cs" />

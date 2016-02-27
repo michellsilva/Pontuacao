@@ -23,7 +23,7 @@ namespace UnibraCred.Pontuacao.Persistencia.business
             {
                 if (value == null)
                     retorno += "a consulta nao pode ser vazia" + "}";
-                else if (value.StartsWith("{cartao_Id:") && value.EndsWith("}"))
+                else if (value.Trim().StartsWith("{cartao_Id:") && value.Trim().EndsWith("}"))
                     retorno = null;
                 else
                     retorno = "formato de entrada do JSON invalido}";
@@ -56,20 +56,52 @@ namespace UnibraCred.Pontuacao.Persistencia.business
             return retorno;
         }
 
-        public List<PontuacaoFatura> LitartodosDetalhes(int cartaoId)
+        public List<FaturaDetalhada> LitartodosDetalhes(int cartaoId)
         {
+
             pd = new PontuacaoDAO();
-            List<PontuacaoFatura> retorno = null;
+            dbP = new DebitoPontosDAO();
+            List<PontuacaoFatura> listFatura = null;
+            List<DebitoPontos> listDebito = null;
+            List<FaturaDetalhada> faturadetalhada = new List<FaturaDetalhada>();
             try
             {
                 //Falta implementar para converter em JSON
-                retorno = pd.LitartodosDetalhes(cartaoId);
+                listFatura = pd.obterTotalPontos(cartaoId);
+                var minData = listFatura.Min(a => a.dtInclusao);
+                listDebito = dbP.listaTotalDebitos(minData);
+                FaturaDetalhada fat;
+
+                foreach (var item in listFatura)
+                {
+                    fat = new FaturaDetalhada();
+                    fat.cartao_id = item.cartao_id;
+                    fat.fatura_id = item.fatura_id;
+                    fat.dtVigencia = item.dtVigencia;
+                    fat.pontosQtd = item.pontosQtd;
+                    fat.tipo = "acumulo";
+                    faturadetalhada.Add(fat);
+                }
+
+                foreach (var item in listDebito)
+                {
+                    fat = new FaturaDetalhada();
+                    fat.cartao_id = item.cartao_id;
+                    fat.fatura_id = item.fatura_id;
+                    fat.dtVigencia = item.dtUtilizacao;
+                    fat.pontosQtd = item.pontosQtd;
+                    fat.tipo = "debito";
+                    faturadetalhada.Add(fat);
+                }
+
+                return faturadetalhada;
+
             }
             catch (Exception ex)
             {
                 ex.ToString();
             }
-            return retorno;
+            return faturadetalhada;
         }
 
         //Verifica quantos pontos uma fatura gerou

@@ -54,21 +54,25 @@ namespace UnibraCred.Pontuacao.Service
 
         public string obterTotalPontosDetalhes(string value)
         {
-            List<PontuacaoFatura> retorno = new List<PontuacaoFatura>();
-            PontuacaoFatura pont = JsonConvert.DeserializeObject<PontuacaoFatura>(value);
-            retorno = fachada.LitartodosDetalhes(pont.cartao_id);
-            string json = JsonConvert.SerializeObject(retorno);
-            ////serialize JSON to a string and then write string to a file
-            //File.WriteAllText(@"C:\Users\Lenovo\Documents\Pos Engenharia Software\Pontuacao2.0\Pontuacao\movie.json", JsonConvert.SerializeObject(json));
+            string json = "";
+            json = fachada.validarJson(value);
+            if (json == null)
+            {
+                List<FaturaDetalhada> retorno = new List<FaturaDetalhada>();
+                PontuacaoFatura pont = JsonConvert.DeserializeObject<PontuacaoFatura>(value);
+                retorno = fachada.LitartodosDetalhes(pont.cartao_id);
+                json = JsonConvert.SerializeObject(retorno);
+                ////serialize JSON to a string and then write string to a file
+                //File.WriteAllText(@"C:\Users\Lenovo\Documents\Pos Engenharia Software\Pontuacao2.0\Pontuacao\movie.json", JsonConvert.SerializeObject(json));
 
-            ////   serialize JSON directly to a file
-            //using (StreamWriter file = File.CreateText(@"C:\Users\Lenovo\Documents\Pos Engenharia Software\Pontuacao2.0\Pontuacao\movie.json"))
-            //{
-            //    JsonSerializer serializer = new JsonSerializer();
-            //    serializer.Serialize(file, json);
-            //}
+                ////   serialize JSON directly to a file
+                //using (StreamWriter file = File.CreateText(@"C:\Users\Lenovo\Documents\Pos Engenharia Software\Pontuacao2.0\Pontuacao\movie.json"))
+                //{
+                //    JsonSerializer serializer = new JsonSerializer();
+                //    serializer.Serialize(file, json);
+                //}
+            }
             return json;
-
         }
 
 

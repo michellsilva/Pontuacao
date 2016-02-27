@@ -30,5 +30,25 @@ namespace UnibraCred.Pontuacao.Persistencia.dao
 
             return retorno;
         }
+
+        public List<DebitoPontos> listaTotalDebitos(Nullable<DateTime> dtInicial)
+        {
+            List<DebitoPontos> retorno = new List<DebitoPontos>();
+
+            try
+            {
+                using (var db = new Store())
+                {
+                    retorno = db.DebitoPontos.Where(x => x.dtUtilizacao >= dtInicial).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ex.ToString();
+            }
+
+            return retorno;
+        }
     }
 }

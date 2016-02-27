@@ -49,9 +49,9 @@ namespace UnibraCred.Pontuacao.Facade
             return retorno;
         }
 
-        public List<PontuacaoFatura> LitartodosDetalhes(int cartaoId)
+        public List<FaturaDetalhada> LitartodosDetalhes(int cartaoId)
         {
-            List<PontuacaoFatura> retorno = null;
+            List<FaturaDetalhada> retorno = null;
             try
             {
                 retorno = pontuacaoBusiness.LitartodosDetalhes(cartaoId);
