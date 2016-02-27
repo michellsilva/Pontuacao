@@ -26,7 +26,7 @@ namespace UnibraCred.Pontuacao.Persistencia.business
                 else if (value.Trim().StartsWith("{cartao_Id:") && value.Trim().EndsWith("}"))
                     retorno = null;
                 else
-                    retorno = "formato de entrada do JSON invalido}";
+                    retorno += "formato de entrada do JSON invalido}";
             }
             catch (Exception ex)
             {
