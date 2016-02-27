@@ -5,7 +5,7 @@ using UnibraCred.Pontuacao.Facade;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json;
 using UnibraCred.Pontuacao.Persistencia.basic;
-using System.Web.Helpers;
+//using System.Web.Helpers;
 
 
 namespace UnibraCred.Pontuacao.Service
@@ -78,19 +78,25 @@ namespace UnibraCred.Pontuacao.Service
             try
             {
                 JavaScriptSerializer json_serializer = new JavaScriptSerializer();
-                Fatura fatura = Json.Decode<Fatura>(faturaJson);   
+
+                //Fatura fatura = Json.Decode<Fatura>(faturaJson);   
+                Fatura fatura = JsonConvert.DeserializeObject<Fatura>(faturaJson);
 
                 PontuacaoFatura pontuacao = fachada.pontosPorFatura(fatura);
 
                 resultado.status = 1;
                 resultado.response = pontuacao.pontosQtd.ToString();
-                return Json.Encode(resultado);
+
+                //return Json.Encode(resultado);
+                return JsonConvert.SerializeObject(resultado);
             }
             catch (Exception ex)
             {
                 resultado.status = 0;
                 resultado.response = ex.Message;
-                return Json.Encode(resultado);
+
+                //return Json.Encode(resultado);
+                return JsonConvert.SerializeObject(resultado);
             }
         }
 
@@ -100,19 +106,25 @@ namespace UnibraCred.Pontuacao.Service
             try
             {
                 JavaScriptSerializer json_serializer = new JavaScriptSerializer();
-                Fatura fatura = Json.Decode<Fatura>(faturaJson);                
-                fachada.pontuarFatura(fatura);              
 
+                //Fatura fatura = Json.Decode<Fatura>(faturaJson);
+                Fatura fatura = JsonConvert.DeserializeObject<Fatura>(faturaJson);
+             
+                fachada.pontuarFatura(fatura);
                 resultado.status = 1;
                 resultado.response = "Fatura pontuada!";
-                return Json.Encode(resultado);
+
+                //return Json.Encode(resultado);
+                return JsonConvert.SerializeObject(resultado);
 
             }
             catch (Exception ex)
             {                
                 resultado.status = 0;
                 resultado.response = ex.Message;
-                return Json.Encode(resultado);
+
+                //return Json.Encode(resultado);
+                return JsonConvert.SerializeObject(resultado);
             }
             
         }
